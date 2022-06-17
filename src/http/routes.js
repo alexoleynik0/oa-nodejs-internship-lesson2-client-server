@@ -8,6 +8,8 @@ module.exports.default = {
   },
   '/users': {
     routes: {
+      'POST:/reset': usersController.reset,
+
       'GET:/': usersController.getAll,
       'POST:/': usersController.create,
       'GET:/{id}': usersController.getOne,

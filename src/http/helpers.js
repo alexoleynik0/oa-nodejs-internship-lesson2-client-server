@@ -60,6 +60,7 @@ const findRoute = (routes, req, reqPath) => {
 
 const SUPPORTED_CONTENT_TYPES = ['application/json', 'application/x-www-form-urlencoded'];
 const getReqContentType = (req) => (req.headers['content-type'] || '').toLowerCase();
+const getReqContentLength = (req) => parseInt(req.headers['content-length'], 10);
 
 const checkReqContentType = (req) => {
   const reqContentType = getReqContentType(req);
@@ -69,6 +70,9 @@ const checkReqContentType = (req) => {
 };
 
 const parseReqData = (req, data) => {
+  if (getReqContentLength(req) === 0) {
+    return null;
+  }
   const reqContentType = getReqContentType(req);
   switch (reqContentType) {
     case 'application/json':

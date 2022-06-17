@@ -1,13 +1,14 @@
 const { checkReqContentType, getReqData, resWriteResourceNotFound } = require('./helpers');
 
-let usersStore = [
-  {
-    id: 1,
-    name: 'John Doe',
-  },
-];
+const USERS_STORE_DEFAULT = [{ id: 1, name: 'John Doe' }];
+let usersStore = [...USERS_STORE_DEFAULT];
 
 module.exports.default = {
+  reset: (_req, res) => {
+    usersStore = [...USERS_STORE_DEFAULT];
+    res.statusCode = 200;
+  },
+
   getAll: (_req, res) => {
     res.statusCode = 200;
     res.write(JSON.stringify(usersStore));
